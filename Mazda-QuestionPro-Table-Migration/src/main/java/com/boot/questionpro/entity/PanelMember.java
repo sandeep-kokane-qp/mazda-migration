@@ -59,7 +59,7 @@ public class PanelMember {
 	@Column(name = "mobile_number")
 	private String mobileNumber;
 	private String username;
-	private Date birthday;
+	private String birthday;
 
 	private String custom1;
 	private String custom2;

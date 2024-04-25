@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.boot.questionpro.entity.Answer"/>
+    <fullyQualifiedTypeName name="com.boot.questionpro.entity.CXTransactionExtendedCustomFields"/>
+    <fullyQualifiedTypeName name="com.boot.questionpro.entity.CXTransaction"/>
+    <fullyQualifiedTypeName name="java.lang.Long"/>
+    <fullyQualifiedTypeName name="com.boot.questionpro.entity.IntResult"/>
+    <fullyQualifiedTypeName name="com.boot.questionpro.entity.PanelMember"/>
+    <fullyQualifiedTypeName name="com.boot.questionpro.entity.Question"/>
+    <fullyQualifiedTypeName name="com.boot.questionpro.entity.ResponseSet"/>
+    <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
+    <fullyQualifiedTypeName name="com.boot.questionpro.entity.TextResult"/>
+</qualifiedTypeNameHistroy>

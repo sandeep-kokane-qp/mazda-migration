@@ -1,10 +1,14 @@
 package com.boot.questionpro.entity;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -21,7 +25,6 @@ import lombok.ToString;
 public class Question {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "survey_id")
 	private Integer surveyId;
@@ -33,7 +36,8 @@ public class Question {
 	@Column(name = "question_id")
 	private Integer questionId;
 
-//    @OneToMany(mappedBy = "q_id", fetch = FetchType.EAGER)
-//    private List<Answer> answersList = new LinkedList<>();
+	@OneToMany(mappedBy = "id", fetch = FetchType.EAGER)
+	@JoinColumn(name = "q_id")
+	private List<Answer> answersList = new LinkedList<>();
 
 }

@@ -1,0 +1,5 @@
+package com.boot.questionpro.repo;
+
+public interface TextResultRepo {
+
+}

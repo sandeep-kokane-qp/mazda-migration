@@ -90,4 +90,8 @@ public class Answer {
 	@Column(name = "updated_by_actor_id")
 	private Integer updatedByActorId;
 
+//	@ManyToOne
+//	@JoinColumn(name = "q_id")
+//	private Question question;
+
 }

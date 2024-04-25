@@ -1,6 +1,8 @@
 package com.boot.autox.entity;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,5 +43,7 @@ public class TblUserInterviewLink {
 	private Integer isTestInterview;
 	@Column(name = "ModifyDate")
 	private LocalDateTime modifyDate;
+
+	private List<TblInterviewResult> interviewResultsList = new LinkedList<>();
 
 }

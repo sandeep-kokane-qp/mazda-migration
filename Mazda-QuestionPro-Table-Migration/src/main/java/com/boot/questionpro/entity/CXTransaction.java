@@ -33,9 +33,9 @@ public class CXTransaction {
 	private Integer cxUserId;
 	@Column(name = "type_id")
 	private Integer typeId;
-	private Timestamp ts;
+	private String ts;
 	@Column(name = "cx_date")
-	private Timestamp cxDate;
+	private String cxDate;
 	@Column(name = "cx_panel_member_id")
 	private Integer cxPanelMemberId;
 	@Column(name = "tansaction_batch_id")

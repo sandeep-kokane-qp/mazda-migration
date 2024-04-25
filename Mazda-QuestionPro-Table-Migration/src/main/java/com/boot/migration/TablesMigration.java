@@ -31,14 +31,14 @@ public class TablesMigration {
 				+ "  JOIN VehicleSales.ods.Vehicle vh on src.VehicleID=vh.VehicleID"
 				+ "  JOIN VehicleSales.ods.Buyer buy on vh.VehicleID=buy.VehicleID"
 				+ "  JOIN VehicleSales.tracking.Tracking trk on buy.BuyerID=trk.BuyerID"
-				+ "  WHERE src.srcVehicleSalesDataID > 0" + "  ORDER BY src.srcVehicleSalesDataID ASC";
+				+ "  WHERE src.srcVehicleSalesDataID > 35722524" + "  ORDER BY src.srcVehicleSalesDataID ASC";
 		return new JdbcCursorItemReaderBuilder<VehicleData>().name("vehicle-data-item-reader").dataSource(dataSource)
 				.sql(sqlString).rowMapper(rowMapper).build();
 	}
 
 	@Bean
 	public Step vehicleDataStep() {
-		return stepBuilderFactory.get("vehicleDataStep").<VehicleData, VehicleData>chunk(100)
+		return stepBuilderFactory.get("vehicleDataStep").<VehicleData, VehicleData>chunk(500)
 				.reader(vehicleDataItemReader()).writer(vehicleDataItemWriter).build();
 	}
 
