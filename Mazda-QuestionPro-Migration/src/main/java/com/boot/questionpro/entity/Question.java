@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "qp_new_question")
+@Table(name = "qp_question")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,7 +36,7 @@ public class Question {
 	@Column(name = "question_id")
 	private Integer questionId;
 
-	@OneToMany(mappedBy = "id", fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "q_id")
 	private List<Answer> answersList = new LinkedList<>();
 

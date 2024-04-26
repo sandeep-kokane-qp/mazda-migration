@@ -1,8 +1,5 @@
 package com.boot.questionpro.entity;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +28,7 @@ public class PanelMember {
 	private String emailAddress;
 	private String password;
 	@Column(name = "creation_date")
-	private LocalDateTime creationDate;
+	private String creationDate;
 	@Column(name = "country_code_weight")
 	private Float countryCodeWeight;
 	private String firstname;
@@ -39,15 +36,15 @@ public class PanelMember {
 	private String lastname;
 	private Integer source;
 	@Column(name = "verify_send_date")
-	private Date verifySendDate;
+	private String verifySendDate;
 	@Column(name = "user_id")
 	private Integer userId;
 	@Column(name = "last_login_ts")
-	private LocalDateTime lastLoginTs;
+	private String lastLoginTs;
 	@Column(name = "domain_name")
 	private String domainName;
 	@Column(name = "unsubscribe_date")
-	private LocalDateTime unsubscribeDate;
+	private String unsubscribeDate;
 	private String address1;
 	private String address2;
 	private String city;

@@ -10,11 +10,10 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import lombok.RequiredArgsConstructor;
 
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
 public class TablesMigration {
 
@@ -31,7 +30,7 @@ public class TablesMigration {
 				+ "  JOIN VehicleSales.ods.Vehicle vh on src.VehicleID=vh.VehicleID"
 				+ "  JOIN VehicleSales.ods.Buyer buy on vh.VehicleID=buy.VehicleID"
 				+ "  JOIN VehicleSales.tracking.Tracking trk on buy.BuyerID=trk.BuyerID"
-				+ "  WHERE src.srcVehicleSalesDataID > 35722524" + "  ORDER BY src.srcVehicleSalesDataID ASC";
+				+ "  WHERE src.srcVehicleSalesDataID > 36871328" + "  ORDER BY src.srcVehicleSalesDataID ASC";
 		return new JdbcCursorItemReaderBuilder<VehicleData>().name("vehicle-data-item-reader").dataSource(dataSource)
 				.sql(sqlString).rowMapper(rowMapper).build();
 	}

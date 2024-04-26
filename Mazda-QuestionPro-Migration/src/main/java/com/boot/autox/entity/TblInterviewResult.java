@@ -4,7 +4,10 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -31,5 +34,9 @@ public class TblInterviewResult {
 	private Integer commentId;
 	@Column(name = "CreatedDTim")
 	private LocalDateTime createdDTim;
+
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CommentID")
+	private TblComment tblComment;
 
 }

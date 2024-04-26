@@ -92,20 +92,25 @@ public class VehicleDataRowMapper implements RowMapper<VehicleData> {
 		vh.setSurveyStatusID(rs.getInt("SurveyStatusID"));
 		vh.setInterviewID(rs.getInt("InterviewID"));
 		String interviewStartDate = rs.getString("InterviewStartDate");
-		vh.setInterviewStartDate(
-				LocalDateTime.parse(interviewStartDate.substring(0, interviewStartDate.lastIndexOf(".")),
-						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		vh.setInterviewStartDate(interviewStartDate != null
+				? LocalDateTime.parse(interviewStartDate.substring(0, interviewStartDate.lastIndexOf(".")),
+						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+				: null);
 		String interviewFinishDate = rs.getString("InterviewFinishDate");
-		vh.setInterviewFinishDate(
-				LocalDateTime.parse(interviewFinishDate.substring(0, interviewFinishDate.lastIndexOf(".")),
-						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		vh.setInterviewFinishDate(interviewFinishDate != null
+				? LocalDateTime.parse(interviewFinishDate.substring(0, interviewFinishDate.lastIndexOf(".")),
+						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+				: null);
 		vh.setCampaignID(rs.getInt("CampaignID"));
 		String trackCreateDate = rs.getString("TrackCreateDate");
-		vh.setTrackCreateDate(LocalDateTime.parse(trackCreateDate.substring(0, trackCreateDate.lastIndexOf(".")),
-				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		vh.setTrackCreateDate(trackCreateDate != null
+				? LocalDateTime.parse(trackCreateDate.substring(0, trackCreateDate.lastIndexOf(".")),
+						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+				: null);
 		String modifyDate = rs.getString("TrackModifyDate");
-		vh.setTrackModifyDate(LocalDateTime.parse(modifyDate.substring(0, modifyDate.lastIndexOf(".")),
-				DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		vh.setTrackModifyDate(
+				modifyDate != null ? LocalDateTime.parse(modifyDate.substring(0, modifyDate.lastIndexOf(".")),
+						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null);
 
 		return vh;
 

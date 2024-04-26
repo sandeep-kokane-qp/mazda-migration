@@ -1,7 +1,5 @@
 package com.boot.questionpro.entity;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "qp_new_answer")
+@Table(name = "qp_answer")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -45,8 +43,6 @@ public class Answer {
 	private Integer quota;
 	@Column(name = "quota_branch_id")
 	private Integer quotaBranchId;
-	@Column(name = "piping_text")
-	private String pipingText;
 	@Column(name = "extraction_source_id")
 	private Integer extractionSourceId;
 	@Column(name = "exclusive_option")
@@ -56,42 +52,24 @@ public class Answer {
 	@Column(name = "exclude_randomize")
 	private Integer excludeRandomize;
 	private Integer location;
-	@Column(name = "enable_mean_calculation")
-	private Integer enableMeanCalculation;
-	@Column(name = "matrix_extraction_source")
-	private String matrixExtractionSource;
 	@Column(name = "answer_code")
 	private String answerCode;
 	private Integer height;
 	private Float scale;
-	@Column(name = "enable_custom_scale")
-	private Integer enableCustomScale;
 	@Column(name = "chain_survey_id")
 	private Integer chainSurveyId;
 	private String suffix;
 	@Column(name = "is_default")
 	private Integer isDefault;
-	@Column(name = "report_text")
-	private String reportText;
 	@Column(name = "attached_custom_var")
 	private Integer attachedCustomVar;
 	@Column(name = "standard_profile_option_id")
 	private Integer standardProfileOptionId;
-	@Column(name = "create_ts")
-	private Timestamp createTs;
-	@Column(name = "update_ts")
-	private Timestamp updateTs;
-	@Column(name = "generic_settings_json")
-	private String genericSettingsJson;
 	@Column(name = "answer_group_id")
 	private Integer answerGroupId;
 	@Column(name = "created_by_actor_id")
 	private Integer createdByActorId;
 	@Column(name = "updated_by_actor_id")
 	private Integer updatedByActorId;
-
-//	@ManyToOne
-//	@JoinColumn(name = "q_id")
-//	private Question question;
 
 }

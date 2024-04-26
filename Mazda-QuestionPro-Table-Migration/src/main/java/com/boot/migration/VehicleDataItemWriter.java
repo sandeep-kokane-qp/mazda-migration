@@ -63,7 +63,7 @@ public class VehicleDataItemWriter implements ItemWriter<VehicleData> {
 				pm.setPanelId(panelId);
 				pm.setUserId(userId);
 				pm.setEmailAddress(vehicleData.getBuyerEmailAddress());
-				pm.setCreationDate(vehicleData.getBuyerCreateDate());
+				pm.setCreationDate(String.valueOf(vehicleData.getBuyerCreateDate()));
 				pm.setFirstname(vehicleData.getBuyerFirstName());
 				pm.setMiddlename(vehicleData.getBuyerMiddleName());
 				pm.setLastname(vehicleData.getBuyerLastName());
@@ -100,8 +100,9 @@ public class VehicleDataItemWriter implements ItemWriter<VehicleData> {
 			responseSet.setUpdatedTs(Timestamp.valueOf(vehicleData.getTrackModifyDate()));
 			responseSet.setSurveyType(3);
 			responseSet.setT(Timestamp.valueOf(vehicleData.getTrackCreateDate()));
-			responseSet.setTimeTaken(Duration
-					.between(vehicleData.getInterviewStartDate(), vehicleData.getInterviewFinishDate()).getSeconds());
+			responseSet.setTimeTaken(vehicleData.getInterviewStartDate() != null ? Duration
+					.between(vehicleData.getInterviewStartDate(), vehicleData.getInterviewFinishDate()).getSeconds()
+					: 0);
 
 			// save responseset
 			ResponseSet savedResponseSet = responseSetRepo.save(responseSet);

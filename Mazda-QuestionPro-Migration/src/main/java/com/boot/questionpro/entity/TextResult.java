@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "qp_new_text_result")
+@Table(name = "qp_text_result")
 @Getter
 @Setter
 @NoArgsConstructor
