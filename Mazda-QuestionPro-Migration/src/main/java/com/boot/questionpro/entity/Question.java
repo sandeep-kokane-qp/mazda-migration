@@ -28,7 +28,7 @@ public class Question {
 	private Integer id;
 	@Column(name = "survey_id")
 	private Integer surveyId;
-	@Column(name = "q_text")
+	@Column(name = "q_text", length = 5000)
 	private String qText;
 	private String code;
 	@Column(name = "category_id")

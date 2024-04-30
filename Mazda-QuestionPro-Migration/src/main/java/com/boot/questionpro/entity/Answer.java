@@ -25,7 +25,7 @@ public class Answer {
 	private Integer qId;
 	@Column(name = "ord_num")
 	private Integer ordNum;
-	@Column(name = "a_text")
+	@Column(name = "a_text", length = 5000)
 	private String aText;
 	@Column(name = "text_box")
 	private Integer textBox;

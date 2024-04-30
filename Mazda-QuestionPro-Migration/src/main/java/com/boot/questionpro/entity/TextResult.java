@@ -12,12 +12,14 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "qp_text_result")
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class TextResult {
 
 	@Id
@@ -29,7 +31,7 @@ public class TextResult {
 	private Integer responseSetId;
 	@Column(name = "a_id")
 	private Integer aId;
-	@Column(name = "a_val")
+	@Column(name = "a_val", columnDefinition = "TEXT")
 	private String aVal;
 	@Column(name = "q_id")
 	private Integer qId;

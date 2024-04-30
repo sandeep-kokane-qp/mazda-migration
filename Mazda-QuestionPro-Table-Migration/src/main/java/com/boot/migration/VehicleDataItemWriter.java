@@ -97,8 +97,10 @@ public class VehicleDataItemWriter implements ItemWriter<VehicleData> {
 			responseSet.setCxBusinessUnitId(cxSegmentId);
 			responseSet.setCustom1(String.valueOf(vehicleData.getTrackingID()));
 			responseSet.setCustom2(String.valueOf(vehicleData.getInterviewID()));
+			responseSet.setCustom3(String.valueOf(vehicleData.getSurveyTempID()));
 			responseSet.setUpdatedTs(Timestamp.valueOf(vehicleData.getTrackModifyDate()));
 			responseSet.setSurveyType(3);
+			responseSet.setExtRef(vehicleData.getIsTestInterview() == 1 ? "test_response" : "");
 			responseSet.setT(Timestamp.valueOf(vehicleData.getTrackCreateDate()));
 			responseSet.setTimeTaken(vehicleData.getInterviewStartDate() != null ? Duration
 					.between(vehicleData.getInterviewStartDate(), vehicleData.getInterviewFinishDate()).getSeconds()

@@ -1,6 +1,6 @@
 package com.boot.questionpro.repo;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -8,5 +8,5 @@ import com.boot.questionpro.entity.ResponseSet;
 
 public interface ResponseSetRepo extends JpaRepository<ResponseSet, Integer> {
 
-	List<ResponseSet> findByCustom2(String interviewId);
+	Optional<ResponseSet> findByCustom2(String interviewId);
 }

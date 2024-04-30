@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -35,8 +35,8 @@ public class TblInterviewResult {
 	@Column(name = "CreatedDTim")
 	private LocalDateTime createdDTim;
 
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "CommentID")
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CommentID", insertable = false, updatable = false)
 	private TblComment tblComment;
 
 }

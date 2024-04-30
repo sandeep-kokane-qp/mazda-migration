@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class VehicleData {
 
+	private Integer surveyTempID;
+	private Integer isTestInterview;
 	private Integer srcVehicleSalesDataID;
 	private String id;
 	private String district;

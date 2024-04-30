@@ -15,6 +15,8 @@ public class VehicleDataRowMapper implements RowMapper<VehicleData> {
 	public VehicleData mapRow(ResultSet rs, int rowNum) throws SQLException {
 		VehicleData vh = new VehicleData();
 		vh.setSrcVehicleSalesDataID(rs.getInt("srcVehicleSalesDataID"));
+		vh.setSurveyTempID(rs.getInt("surveyTempID"));
+		vh.setIsTestInterview(rs.getInt("isTestInterview"));
 		vh.setId(rs.getString("ID"));
 		vh.setDistrict(rs.getString("District"));
 		vh.setSaleTypeCode(rs.getString("SaleTypeCode"));
