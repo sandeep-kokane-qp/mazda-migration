@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "qp_new_cx_transaction_extended_custom_fields")
+@Table(name = "cx_transaction_extended_custom_fields")
 @Getter
 @Setter
 @NoArgsConstructor

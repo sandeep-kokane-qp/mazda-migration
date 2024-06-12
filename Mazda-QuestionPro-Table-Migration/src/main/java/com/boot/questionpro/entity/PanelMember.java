@@ -1,5 +1,8 @@
 package com.boot.questionpro.entity;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "qp_panel_member")
+@Table(name = "panel_member")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,23 +31,19 @@ public class PanelMember {
 	private String emailAddress;
 	private String password;
 	@Column(name = "creation_date")
-	private String creationDate;
+	private Date creationDate;
 	@Column(name = "country_code_weight")
 	private Float countryCodeWeight;
 	private String firstname;
 	private String middlename;
 	private String lastname;
-	private Integer source;
-	@Column(name = "verify_send_date")
-	private String verifySendDate;
+	@Column(name = "last_app_used")
+	private Timestamp lastAppUsed;
+
 	@Column(name = "user_id")
 	private Integer userId;
-	@Column(name = "last_login_ts")
-	private String lastLoginTs;
 	@Column(name = "domain_name")
 	private String domainName;
-	@Column(name = "unsubscribe_date")
-	private String unsubscribeDate;
 	private String address1;
 	private String address2;
 	private String city;
@@ -57,6 +56,8 @@ public class PanelMember {
 	private String mobileNumber;
 	private String username;
 	private String birthday;
+	@Column(name = "profile_pic_updated")
+	private Integer profilePicUpdated;
 
 	private String custom1;
 	private String custom2;

@@ -31,7 +31,7 @@ public class TestRunner implements ApplicationRunner {
 		log.info("test runner");
 
 		PanelMemberStore.setPanelMembersMap(panelMemberRepo.findAll().parallelStream()
-				.collect(Collectors.toMap(PanelMember::getCustom1, Function.identity())));
+				.collect(Collectors.toMap(PanelMember::getEmailAddress, Function.identity())));
 
 		log.info("total panel-members found : " + PanelMemberStore.panelMembersMap.size());
 

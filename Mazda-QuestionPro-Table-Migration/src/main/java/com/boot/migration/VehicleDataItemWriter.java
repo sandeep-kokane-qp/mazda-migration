@@ -1,7 +1,9 @@
 package com.boot.migration;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +53,7 @@ public class VehicleDataItemWriter implements ItemWriter<VehicleData> {
 	private Integer workflowProcessId;
 
 	static Map<Integer, Integer> surveyStatusMap = Map.of(-1, 4, 0, 0, 1, 0, 2, 2, 3, 1, 4, 0, 5, 0, 6, 1);
+	static Map<Integer, Integer> transactionStatusMap = Map.of(-1, 0, 0, 0, 1, 0, 2, 10, 3, 3, 4, 3, 5, 2, 6, 10);
 
 	@Override
 	public void write(List<? extends VehicleData> items) throws Exception {
@@ -58,12 +61,13 @@ public class VehicleDataItemWriter implements ItemWriter<VehicleData> {
 		for (VehicleData vehicleData : items) {
 //			 create panel_member
 			PanelMember pm = null;
-			if (!PanelMemberStore.getPanelMembersMap().containsKey(String.valueOf(vehicleData.getBuyerId()))) {
+			if (!PanelMemberStore.getPanelMembersMap()
+					.containsKey(String.valueOf(vehicleData.getBuyerEmailAddress()))) {
 				pm = new PanelMember();
 				pm.setPanelId(panelId);
 				pm.setUserId(userId);
 				pm.setEmailAddress(vehicleData.getBuyerEmailAddress());
-				pm.setCreationDate(String.valueOf(vehicleData.getBuyerCreateDate()));
+				pm.setCreationDate(Date.valueOf(vehicleData.getBuyerCreateDate().toLocalDate()));
 				pm.setFirstname(vehicleData.getBuyerFirstName());
 				pm.setMiddlename(vehicleData.getBuyerMiddleName());
 				pm.setLastname(vehicleData.getBuyerLastName());
@@ -75,15 +79,16 @@ public class VehicleDataItemWriter implements ItemWriter<VehicleData> {
 				pm.setZipcode(vehicleData.getBuyerZipCode());
 				pm.setCountry(vehicleData.getBuyerCountry());
 				pm.setMobileNumber(vehicleData.getBuyerHomePhone());
-				pm.setBirthday(String.valueOf(vehicleData.getBuyerBirthday()));
+				// pm.setBirthday(String.valueOf(vehicleData.getBuyerBirthday()));
 				pm.setCustom1(String.valueOf(vehicleData.getBuyerId()));
+				pm.setProfilePicUpdated(0);
+				pm.setLastAppUsed(Timestamp.valueOf(LocalDateTime.now()));
 				// save panelmember
 				pm = panelMemberRepo.save(pm);
 				PanelMemberStore.putPanelMember(pm);
 				log.info("saved for buyerid : " + vehicleData.getBuyerId());
 			} else {
-				pm = PanelMemberStore.getPanelMember(String.valueOf(vehicleData.getBuyerId()));
-
+				pm = PanelMemberStore.getPanelMember(String.valueOf(vehicleData.getBuyerEmailAddress()));
 			}
 
 //			 create responses set
@@ -116,15 +121,17 @@ public class VehicleDataItemWriter implements ItemWriter<VehicleData> {
 			cxTransaction.setCxStoreId(cxSegmentId);
 			cxTransaction.setCxUserId(cxUserId);
 			cxTransaction.setTypeId(0);
-			cxTransaction.setTs(vehicleData.getSaleTimeStamp());
-			cxTransaction.setCxDate(String.valueOf(vehicleData.getTrackCreateDate()));
+			cxTransaction.setTs(Timestamp.valueOf(vehicleData.getTrackCreateDate()));
+//			cxTransaction.setCxDate(new Date(vehicleData.getSaleTimeStamp().getTime()));
 			cxTransaction.setTouchPointId(cxSurveyId);
 			cxTransaction.setSurveyId(cxSurveyId);
 			cxTransaction.setResponseSetId(savedResponseSet.getId());
 			cxTransaction.setAppliedRules(appliedRules);
 			cxTransaction.setWorkflowProcessId(workflowProcessId);
 			cxTransaction.setImportType(9);
-			cxTransaction.setResponseStatus(surveyStatusMap.get(vehicleData.getSurveyStatusID()));
+			cxTransaction.setCxPanelMemberId(pm.getId());
+			cxTransaction.setResponseStatus(transactionStatusMap.get(vehicleData.getSurveyStatusID()));
+			cxTransaction.setRestingTime(Timestamp.valueOf(LocalDateTime.now()));
 
 			cxTransaction.setCustom1(String.valueOf(vehicleData.getSrcVehicleSalesDataID()));
 			cxTransaction.setCustom2(vehicleData.getId());
@@ -148,7 +155,7 @@ public class VehicleDataItemWriter implements ItemWriter<VehicleData> {
 			cxTransaction.setCustom20(vehicleData.getMiddleName());
 			cxTransaction.setCustom21(vehicleData.getBuyerWorkPhone());
 			cxTransaction.setCustom22(vehicleData.getBuyerWorkPhoneExt());
-			cxTransaction.setCustom23(vehicleData.getSaleTimeStamp());
+			cxTransaction.setCustom23(String.valueOf(vehicleData.getSaleTimeStamp()));
 			cxTransaction.setCustom24(vehicleData.getFnclSourceCode());
 			cxTransaction.setCustom25(vehicleData.getEmpSupplierCode());
 			cxTransaction.setCustom26(vehicleData.getMscCode());
@@ -167,6 +174,7 @@ public class VehicleDataItemWriter implements ItemWriter<VehicleData> {
 			CXTransactionExtendedCustomFields extendedCustomFields = new CXTransactionExtendedCustomFields();
 			extendedCustomFields.setUserId(userId);
 			extendedCustomFields.setCxFeedbackId(cxFeedbackId);
+			extendedCustomFields.setTs(Timestamp.valueOf(vehicleData.getTrackCreateDate()));
 			extendedCustomFields.setCxTransactionId(savedCxTransaction.getId());
 			extendedCustomFields.setCxWorkflowId(cxTransaction.getWorkflowProcessId());
 			extendedCustomFields.setType(cxTransaction.getTypeId());

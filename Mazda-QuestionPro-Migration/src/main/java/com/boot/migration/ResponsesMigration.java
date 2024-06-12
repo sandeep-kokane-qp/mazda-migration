@@ -84,11 +84,12 @@ public class ResponsesMigration implements ApplicationRunner {
 								questionMapping.getQuestionID()))) {
 							Question question = questionMap.get(String.format("%d_%d", questionMapping.getCategoryID(),
 									questionMapping.getQuestionID()));
-							Integer answerID = interviewResult.getAnswerId();
+							int answerID = interviewResult.getAnswerId();
 							List<TblPossAnsMapping> possAnsMappingsList = questionMapping.getTblPossAnsMappingsList();
 							Answer answer = null;
 							for (TblPossAnsMapping possAnsMapping : possAnsMappingsList) {
-								if (answerID == possAnsMapping.getPossAnsID()) {
+								int possAnsID = possAnsMapping.getPossAnsID();
+								if (answerID == possAnsID) {
 									List<Answer> answersList = question.getAnswersList();
 									for (Answer ans : answersList) {
 										if (ans.getAText() != null

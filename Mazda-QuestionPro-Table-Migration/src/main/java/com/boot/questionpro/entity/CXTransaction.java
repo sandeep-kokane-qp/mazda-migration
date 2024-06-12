@@ -1,5 +1,6 @@
 package com.boot.questionpro.entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "qp_new_cx_transaction")
+@Table(name = "cx_transaction")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,9 +34,9 @@ public class CXTransaction {
 	private Integer cxUserId;
 	@Column(name = "type_id")
 	private Integer typeId;
-	private String ts;
+	private Timestamp ts;
 	@Column(name = "cx_date")
-	private String cxDate;
+	private Date cxDate;
 	@Column(name = "cx_panel_member_id")
 	private Integer cxPanelMemberId;
 	@Column(name = "tansaction_batch_id")
@@ -43,48 +44,28 @@ public class CXTransaction {
 	@Column(name = "touch_point_id")
 	private Integer touchPointId;
 	private Integer status;
-	@Column(name = "product_id")
-	private Integer productId;
 	@Column(name = "response_set_id")
 	private Integer responseSetId;
 	@Column(name = "wave_id")
 	private Integer waveId;
 	@Column(name = "member_status")
 	private Integer memberStatus;
-	@Column(name = "language_id")
-	private Integer languageId;
 	@Column(name = "org_id")
 	private Integer orgId;
-	@Column(name = "transaction_owner_emails")
-	private String transactionOwnerEmails;
-	@Column(name = "cx_distribution_batch_id")
-	private Integer cxDistributionBatchId;
 	@Column(name = "survey_id")
 	private Integer surveyId;
-	@Column(name = "send_survey_ts")
-	private Timestamp sendSurveyId;
-	@Column(name = "survey_template_id")
-	private Integer emailTemplateId;
 	@Column(name = "send_option")
 	private Integer sendOption;
 	@Column(name = "applied_rules")
 	private String appliedRules;
-	@Column(name = "product_group_id")
-	private Integer productGroupId;
-	@Column(name = "invitation_sent_ts")
-	private Timestamp invitationSentTs;
-	@Column(name = "reminder_count")
-	private Integer reminderCount;
-	@Column(name = "next_reminder_count")
-	private Timestamp nextReminderCount;
 	@Column(name = "import_type")
 	private Integer importType;
 	@Column(name = "workflow_process_id")
 	private Integer workflowProcessId;
-	@Column(name = "panel_log_id")
-	private Integer panelLogId;
 	@Column(name = "response_status")
 	private Integer responseStatus;
+	@Column(name = "resting_time")
+	private Timestamp restingTime;
 
 	private String custom1;
 	private String custom2;

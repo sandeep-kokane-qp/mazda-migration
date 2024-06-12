@@ -17,7 +17,7 @@ public class PanelMemberStore {
 	}
 
 	public static void putPanelMember(PanelMember panelMember) {
-		PanelMemberStore.panelMembersMap.put(panelMember.getCustom1(), panelMember);
+		PanelMemberStore.panelMembersMap.put(panelMember.getEmailAddress(), panelMember);
 	}
 
 	public static PanelMember getPanelMember(String id) {
