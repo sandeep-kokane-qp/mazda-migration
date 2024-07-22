@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "panel_member")
+@Table(name = "qp_mazda_panel_member")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -3,18 +3,16 @@ package com.boot.questionpro.entity;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "response_set")
+//@Entity
+//@Table(name = "qp_mazda_response_set")
 @Getter
 @Setter
 @NoArgsConstructor

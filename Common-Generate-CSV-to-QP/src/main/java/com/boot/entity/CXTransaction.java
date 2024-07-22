@@ -1,0 +1,100 @@
+package com.boot.entity;
+
+import java.util.Date;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class CXTransaction {
+
+	private int id;
+	private int cxCustomerId;
+	private int cxFeedbackId;
+	private int cxStoreId;
+	private int cxUserId;
+	private Integer typeId;
+	private Date ts;
+	private Date cxDate;
+	private int cxPanelMemberId;
+	private Date restingTime;
+	private Integer tansactionBatchId;
+	private Integer touchPointId;
+	private int status;
+	private String custom1;
+	private String custom2;
+	private String custom3;
+	private String custom4;
+	private String custom5;
+	private String custom6;
+	private String custom7;
+	private String custom8;
+	private String custom9;
+	private String custom10;
+	private String custom11;
+	private String custom12;
+	private String custom13;
+	private String custom14;
+	private String custom15;
+	private String custom16;
+	private String custom17;
+	private String custom18;
+	private String custom19;
+	private String custom20;
+	private Integer productId;
+	private int responseSetId;
+	private int waveId;
+	private int memberStatus;
+	private Integer cxDistributionBatchId;
+	private Integer surveyId;
+	private Integer languageId;
+	private String custom21;
+	private String custom22;
+	private String custom23;
+	private String custom24;
+	private String custom25;
+	private String custom26;
+	private String custom27;
+	private String custom28;
+	private String custom29;
+	private String custom30;
+	private String custom31;
+	private String custom32;
+	private String custom33;
+	private String custom34;
+	private String custom35;
+	private String custom36;
+	private String custom37;
+	private String custom38;
+	private String custom39;
+	private String custom40;
+	private String custom41;
+	private String custom42;
+	private String custom43;
+	private String custom44;
+	private String custom45;
+	private String custom46;
+	private String custom47;
+	private String custom48;
+	private String custom49;
+	private String custom50;
+	private int orgId;
+	private String transactionOwnerEmails;
+	private Date sendSurveyTs;
+	private Integer emailTemplateId;
+	private Integer smsTemplateId;
+	private Integer sendOption;
+	private String appliedRules;
+	private Integer productGroupId;
+	private Date invitationSentTs;
+	private Integer reminderCount;
+	private Date nextReminderTs;
+	private Integer maxReminderCount;
+	private Integer importType;
+	private int workflowProcessId;
+	private int panelLogId;
+	private int responseStatus;
+}
