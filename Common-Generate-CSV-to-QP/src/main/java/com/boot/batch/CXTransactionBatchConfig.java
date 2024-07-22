@@ -43,22 +43,19 @@ public class CXTransactionBatchConfig {
 	@Bean
 	ItemWriter<CXTransaction> cxTransactionItemWriter() {
 		WritableResource output = new FileSystemResource(new File("CxTransaction/cxtransaction.csv"));
+		String[] fieldNames = getFieldNames(CXTransaction.class);
 		return new FlatFileItemWriterBuilder<CXTransaction>().name("cxTransactionItemWriter").resource(output)
 				.delimited().delimiter(",")
-				.names("id", "cxCustomerId", "cxFeedbackId", "cxStoreId", "cxUserId", "typeId", "ts", "cxDate",
-						"cxPanelMemberId", "restingTime", "tansactionBatchId", "touchPointId", "status", "custom1",
-						"custom2", "custom3", "custom4", "custom5", "custom6", "custom7", "custom8", "custom9",
-						"custom10", "custom11", "custom12", "custom13", "custom14", "custom15", "custom16", "custom17",
-						"custom18", "custom19", "custom20", "productId", "responseSetId", "waveId", "memberStatus",
-						"cxDistributionBatchId", "surveyId", "languageId", "custom21", "custom22", "custom23",
-						"custom24", "custom25", "custom26", "custom27", "custom28", "custom29", "custom30", "custom31",
-						"custom32", "custom33", "custom34", "custom35", "custom36", "custom37", "custom38", "custom39",
-						"custom40", "custom41", "custom42", "custom43", "custom44", "custom45", "custom46", "custom47",
-						"custom48", "custom49", "custom50", "orgId", "transactionOwnerEmails", "sendSurveyTs",
-						"emailTemplateId", "smsTemplateId", "sendOption", "appliedRules", "productGroupId",
-						"invitationSentTs", "reminderCount", "nextReminderTs", "maxReminderCount", "importType",
-						"workflowProcessId", "panelLogId", "responseStatus")
+				.names(fieldNames)
+				.headerCallback(writer -> writer.write(String.join(",", fieldNames)))
 				.build();
+	}
+
+	private String[] getFieldNames(Class<?> clazz){
+		Field[] fields = clazz.getDeclaredFields();
+		return Arrays.stream(fields)
+				.map(Field::getName)
+				.toArray(String[]::new);
 	}
 
 	@Bean

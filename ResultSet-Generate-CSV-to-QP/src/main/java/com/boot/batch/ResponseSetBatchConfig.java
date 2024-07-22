@@ -47,16 +47,19 @@ public class ResponseSetBatchConfig {
 	@Bean
 	ItemWriter<ResponseSet> responseSetItemWriter() {
 		WritableResource output = new FileSystemResource(new File("ResponseSet/responseset.csv"));
+		String[] fieldNames = getFieldNames(ResponseSet.class);
 		return new FlatFileItemWriterBuilder<ResponseSet>().name("cxTransactionItemWriter").resource(output).delimited()
 				.delimiter(",")
-				.names("id", "surveyId", "respondentId", "extRef", "emailAddr", "ip", "t", "timeTaken", "categoryId",
-						"externalId", "duplicate", "emailGroup", "externalEmailId", "geoCodeCountry",
-						"geoCodeCountryCode", "terminatedSurvey", "geoCodeRegion", "geoCodeCity", "geoCodeAreaCode",
-						"geoCodeDmaCode", "insetList", "custom1", "custom2", "custom3", "custom4", "panelMemberId",
-						"weight", "custom5", "guid", "quotaOverlimit", "panelId", "refererDomain", "userAgent",
-						"longitude", "latitude", "radius", "cxBusinessUnitId", "surveyLinkId", "dataQualityFlag",
-						"dataQualityScore", "updatedTs", "channel", "alternateFlipOrder", "surveyType")
+				.names(fieldNames)
+				.headerCallback(writer -> writer.write(String.join(",", fieldNames)))
 				.build();
+	}
+
+	private String[] getFieldNames(Class<?> clazz){
+		Field[] fields = clazz.getDeclaredFields();
+		return Arrays.stream(fields)
+				.map(Field::getName)
+				.toArray(String[]::new);
 	}
 
 	@Bean

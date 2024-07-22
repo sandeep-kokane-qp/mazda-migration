@@ -49,17 +49,19 @@ public class CXTransactionExtendedFieldsBatchConfig {
 	ItemWriter<CXTransactionExtendedCustomFields> cxTransactionExtendedFieldsItemWriter() {
 		WritableResource output = new FileSystemResource(
 				new File("CxTransactionExtendedFields/cxtransactionextendedfields.csv"));
+		String[] fieldNames = getFieldNames(CXTransactionExtendedCustomFields.class);
 		return new FlatFileItemWriterBuilder<CXTransactionExtendedCustomFields>()
 				.name("cxTransactionExtendedFieldsItemWriter").resource(output).delimited().delimiter(",")
-				.names("id", "userId", "cxFeedbackId", "cxTransactionId", "cxWorkflowId", "cxWorkflowRuleId", "type",
-						"ts", "custom51", "custom52", "custom53", "custom54", "custom55", "custom56", "custom57",
-						"custom58", "custom59", "custom60", "custom61", "custom62", "custom63", "custom64", "custom65",
-						"custom66", "custom67", "custom68", "custom69", "custom70", "custom71", "custom72", "custom73",
-						"custom74", "custom75", "custom76", "custom77", "custom78", "custom79", "custom80", "custom81",
-						"custom82", "custom83", "custom84", "custom85", "custom86", "custom87", "custom88", "custom89",
-						"custom90", "custom91", "custom92", "custom93", "custom94", "custom95", "custom96", "custom97",
-						"custom98", "custom99", "custom100", "additionalInfoJson")
+				.names(fieldNames)
+				.headerCallback(writer -> writer.write(String.join(",", fieldNames)))
 				.build();
+	}
+
+	private String[] getFieldNames(Class<?> clazz){
+		Field[] fields = clazz.getDeclaredFields();
+		return Arrays.stream(fields)
+				.map(Field::getName)
+				.toArray(String[]::new);
 	}
 
 	@Bean

@@ -43,13 +43,19 @@ public class TextResultBatchConfig {
 	@Bean
 	ItemWriter<TextResult> textResultItemWriter() {
 		WritableResource output = new FileSystemResource(new File("TextResult/textresult.csv"));
+		String[] fieldNames = getFieldNames(TextResult.class);
 		return new FlatFileItemWriterBuilder<TextResult>().name("TextResultItemWriter").resource(output).delimited()
 				.delimiter("^")
-				.names("respId", "responseSetId", "aId", "aVal", "qId", "surveyId", "classificationId",
-						"sourceAnswerId", "t", "id", "sentimentScore", "votes", "apiSentimentScore", "apiSentimentUuid",
-						"apiSentimentStatus", "sentimentCategory", "apiSentimentCategory",
-						"apiSentimentCategoryProbability")
+				.names(fieldNames)
+				.headerCallback(writer -> writer.write(String.join(",", fieldNames)))
 				.build();
+	}
+
+	private String[] getFieldNames(Class<?> clazz){
+		Field[] fields = clazz.getDeclaredFields();
+		return Arrays.stream(fields)
+				.map(Field::getName)
+				.toArray(String[]::new);
 	}
 
 	@Bean

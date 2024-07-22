@@ -53,23 +53,19 @@ public class PanelMemberBatchConfig {
 	@Bean
 	ItemWriter<PanelMember> panelMemberItemWriter() {
 		WritableResource output = new FileSystemResource(new File("PanelMember/panelmember.csv"));
+		String[] fieldNames = getFieldNames(PanelMember.class);
 		return new FlatFileItemWriterBuilder<PanelMember>().name("panelMemberItemWriter").resource(output).delimited()
 				.delimiter(",")
-				.names("id", "panelId", "status", "emailAddress", "password", "creationDate", "verifyCode", "custom1",
-						"custom2", "custom3", "custom4", "surveyCompleteCount", "surveyTerminateCount",
-						"surveyInviteCount", "passwordVerify", "countryCodeWeight", "firstname", "middlename",
-						"lastname", "source", "verifySendDate", "userId", "lastLoginTs", "custom5", "signupIp",
-						"lastLoginIp", "referId", "winnerDrawingId", "domainName", "unsubscribeDate", "qpointCount",
-						"address1", "address2", "city", "state", "zipcode", "country", "discussionTopicCount",
-						"discussionTopicCommentCount", "moderator", "notification", "externalIdentifier", "openid",
-						"iphoneUdid", "iphonePushToken", "displaySettings", "panelLinkId", "lastInvitationDate",
-						"loginCount", "profileCompletedDate", "panelSourceId", "customSource", "birthday", "userAgent",
-						"globalEmailCount", "externalUniqueIdentifier", "county", "defaultLanguage", "selectedLanguage",
-						"zipcode4", "tos", "lastActivityTs", "deviceType", "parentMemberId", "timezone",
-						"bounceMessage", "profilePicUpdated", "mobileNumber", "additionalInfoJson",
-						"birthdayMailSentTimestamp", "lastAppUsed", "firstLoginTs", "username", "isPasswordHashed",
-						"blockedReason")
+				.names(fieldNames)
+				.headerCallback(writer -> writer.write(String.join(",", fieldNames)))
 				.build();
+	}
+
+	private String[] getFieldNames(Class<?> clazz){
+		Field[] fields = clazz.getDeclaredFields();
+		return Arrays.stream(fields)
+				.map(Field::getName)
+				.toArray(String[]::new);
 	}
 
 	@Bean

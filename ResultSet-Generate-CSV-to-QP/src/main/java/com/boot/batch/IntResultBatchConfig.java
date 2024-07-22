@@ -41,10 +41,19 @@ public class IntResultBatchConfig {
 	@Bean
 	ItemWriter<IntResult> intResultItemWriter() {
 		WritableResource output = new FileSystemResource(new File("IntResult/intresult.csv"));
+		String[] fieldNames = getFieldNames(IntResult.class);
 		return new FlatFileItemWriterBuilder<IntResult>().name("IntResultItemWriter").resource(output).delimited()
 				.delimiter(",")
-				.names("id", "respId", "responseSetId", "aId", "aVal", "surveyId", "qId", "sourceAnswerId", "t")
+				.names(fieldNames)
+				.headerCallback(writer -> writer.write(String.join(",", fieldNames)))
 				.build();
+	}
+
+	private String[] getFieldNames(Class<?> clazz){
+		Field[] fields = clazz.getDeclaredFields();
+		return Arrays.stream(fields)
+				.map(Field::getName)
+				.toArray(String[]::new);
 	}
 
 	@Bean
