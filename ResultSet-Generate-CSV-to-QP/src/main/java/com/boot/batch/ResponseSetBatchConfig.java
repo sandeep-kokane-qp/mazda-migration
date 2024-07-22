@@ -1,6 +1,8 @@
 package com.boot.batch;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.util.Arrays;
 
 import javax.sql.DataSource;
 
@@ -46,20 +48,16 @@ public class ResponseSetBatchConfig {
 
 	@Bean
 	ItemWriter<ResponseSet> responseSetItemWriter() {
-		WritableResource output = new FileSystemResource(new File("ResponseSet/responseset.csv"));
+		WritableResource output = new FileSystemResource(new File("output/responseset.csv"));
 		String[] fieldNames = getFieldNames(ResponseSet.class);
 		return new FlatFileItemWriterBuilder<ResponseSet>().name("cxTransactionItemWriter").resource(output).delimited()
-				.delimiter(",")
-				.names(fieldNames)
-				.headerCallback(writer -> writer.write(String.join(",", fieldNames)))
+				.delimiter(",").names(fieldNames).headerCallback(writer -> writer.write(String.join(",", fieldNames)))
 				.build();
 	}
 
-	private String[] getFieldNames(Class<?> clazz){
+	private String[] getFieldNames(Class<?> clazz) {
 		Field[] fields = clazz.getDeclaredFields();
-		return Arrays.stream(fields)
-				.map(Field::getName)
-				.toArray(String[]::new);
+		return Arrays.stream(fields).map(Field::getName).toArray(String[]::new);
 	}
 
 	@Bean

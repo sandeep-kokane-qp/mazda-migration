@@ -1,6 +1,8 @@
 package com.boot.batch;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.util.Arrays;
 
 import javax.sql.DataSource;
 
@@ -42,20 +44,16 @@ public class TextResultBatchConfig {
 
 	@Bean
 	ItemWriter<TextResult> textResultItemWriter() {
-		WritableResource output = new FileSystemResource(new File("TextResult/textresult.csv"));
+		WritableResource output = new FileSystemResource(new File("output/textresult.csv"));
 		String[] fieldNames = getFieldNames(TextResult.class);
 		return new FlatFileItemWriterBuilder<TextResult>().name("TextResultItemWriter").resource(output).delimited()
-				.delimiter("^")
-				.names(fieldNames)
-				.headerCallback(writer -> writer.write(String.join(",", fieldNames)))
+				.delimiter("^").names(fieldNames).headerCallback(writer -> writer.write(String.join(",", fieldNames)))
 				.build();
 	}
 
-	private String[] getFieldNames(Class<?> clazz){
+	private String[] getFieldNames(Class<?> clazz) {
 		Field[] fields = clazz.getDeclaredFields();
-		return Arrays.stream(fields)
-				.map(Field::getName)
-				.toArray(String[]::new);
+		return Arrays.stream(fields).map(Field::getName).toArray(String[]::new);
 	}
 
 	@Bean

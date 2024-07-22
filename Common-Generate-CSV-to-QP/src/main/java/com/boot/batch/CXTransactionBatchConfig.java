@@ -1,6 +1,8 @@
 package com.boot.batch;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.util.Arrays;
 
 import javax.sql.DataSource;
 
@@ -42,20 +44,16 @@ public class CXTransactionBatchConfig {
 
 	@Bean
 	ItemWriter<CXTransaction> cxTransactionItemWriter() {
-		WritableResource output = new FileSystemResource(new File("CxTransaction/cxtransaction.csv"));
+		WritableResource output = new FileSystemResource(new File("output/cxtransaction.csv"));
 		String[] fieldNames = getFieldNames(CXTransaction.class);
 		return new FlatFileItemWriterBuilder<CXTransaction>().name("cxTransactionItemWriter").resource(output)
-				.delimited().delimiter(",")
-				.names(fieldNames)
-				.headerCallback(writer -> writer.write(String.join(",", fieldNames)))
-				.build();
+				.delimited().delimiter(",").names(fieldNames)
+				.headerCallback(writer -> writer.write(String.join(",", fieldNames))).build();
 	}
 
-	private String[] getFieldNames(Class<?> clazz){
+	private String[] getFieldNames(Class<?> clazz) {
 		Field[] fields = clazz.getDeclaredFields();
-		return Arrays.stream(fields)
-				.map(Field::getName)
-				.toArray(String[]::new);
+		return Arrays.stream(fields).map(Field::getName).toArray(String[]::new);
 	}
 
 	@Bean
