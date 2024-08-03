@@ -77,12 +77,9 @@ public class QuestionCurrentCategoryMapper implements ApplicationRunner {
 							break;
 						}
 					}
-
 				}
 				log.info("QuestionMapped for id : " + question.getId());
 			}
 		}
-
 	}
-
 }

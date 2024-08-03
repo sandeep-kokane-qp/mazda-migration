@@ -27,15 +27,11 @@ public class ImportAnswers implements ApplicationRunner {
 		log.debug("ImportAnswers.run");
 
 		Resource resource = new ClassPathResource("mazda-answers.xlsx");
-
 		List<Answer> answerList = ExcelUtility.excelAnswersToList(resource.getInputStream());
-		log.info("answerlist size :: " + answerList.size());
 		for (Answer answer : answerList) {
 			log.info("saving answer : " + answer.getId());
 			answerRepo.save(answer);
 		}
-
-//		answerRepo.saveAll(answerList);
 		log.info("done");
 	}
 }

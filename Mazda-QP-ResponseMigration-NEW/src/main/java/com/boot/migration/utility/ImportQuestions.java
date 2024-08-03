@@ -27,15 +27,11 @@ public class ImportQuestions implements ApplicationRunner {
 		log.debug("ImportQuestions.run");
 
 		Resource resource = new ClassPathResource("mazda-questions.xlsx");
-
 		List<Question> questionList = ExcelUtility.excelQuestionsToList(resource.getInputStream());
 		for (Question question : questionList) {
 			log.info("saving question : " + question.getId());
 			questionRepo.save(question);
 		}
-
-		System.out.println(questionList.size());
-//		questionRepo.saveAll(questionList);
 		log.info("done");
 	}
 }

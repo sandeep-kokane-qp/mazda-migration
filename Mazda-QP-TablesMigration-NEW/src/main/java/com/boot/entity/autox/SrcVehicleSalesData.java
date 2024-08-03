@@ -14,7 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "srcVehicleSalesDataCX_90", schema = "mazdaus")
+@Table(name = "srcVehicleSalesDataMX_60", schema = "mazdaus")
 @Getter
 @Setter
 public class SrcVehicleSalesData {

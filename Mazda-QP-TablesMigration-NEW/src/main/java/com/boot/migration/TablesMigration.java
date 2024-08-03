@@ -32,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 //@Component
 @Slf4j
 @RequiredArgsConstructor
+// Use TablesMigrationReverseEngineering class
 public class TablesMigration implements ApplicationRunner {
 
 	private final SrcVehicleSalesDataRepository srcVehicleSalesDataRepository;
@@ -65,6 +66,8 @@ public class TablesMigration implements ApplicationRunner {
 	private String appliedRule;
 	@Value("${qp.cx.feedback.workflow.process.id}")
 	private Integer workflowProcessID;
+	@Value("${autox.survey.program.ids}")
+	private List<Integer> programIDs;
 
 	static Map<Integer, Integer> surveyStatusMap = Map.of(-1, 4, 0, 0, 1, 0, 2, 2, 3, 1, 4, 0, 5, 0, 6, 1);
 	static Map<Integer, Integer> transactionStatusMap = Map.of(-1, 0, 0, 0, 1, 0, 2, 10, 3, 3, 4, 3, 5, 2, 6, 10);
@@ -89,9 +92,8 @@ public class TablesMigration implements ApplicationRunner {
 					Buyer buyer = optionalBuyer.get();
 					// get related tracking
 					List<Tracking> trackingList = trackingRepository
-							.findByBuyerIDAndCampaignIDIn(buyer.getBuyerID(), List.of(400, 401)) // campaignList.stream().map(Campaign::getCampaignId).toList())
+							.findByBuyerIDAndCampaignIDIn(buyer.getBuyerID(), programIDs) // campaignList.stream().map(Campaign::getCampaignId).toList())
 							.stream().filter(tr -> tr.getInterviewStartDate() != null).toList();
-					// log.info("tracking list size :: " + trackingList.size());
 					// get panel member
 					Optional<PanelMember> optionalPanelMember = panelMemberRepository
 							.findByEmailAddress(srcVehicleSalesData.getBuyerEmailAddress());

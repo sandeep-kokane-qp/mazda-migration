@@ -2,6 +2,7 @@ package com.boot.migration;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -66,9 +67,14 @@ public class TablesMigrationReverseEngineering implements ApplicationRunner {
 	private String appliedRule;
 	@Value("${qp.cx.feedback.workflow.process.id}")
 	private Integer workflowProcessID;
+	@Value("${autox.survey.program.ids}")
+	private List<Integer> programIDs;
 
-	static Map<Integer, Integer> surveyStatusMap = Map.of(-1, 4, 0, 0, 1, 0, 2, 2, 3, 1, 4, 0, 5, 0, 6, 1);
-	static Map<Integer, Integer> transactionStatusMap = Map.of(-1, 0, 0, 0, 1, 0, 2, 10, 3, 3, 4, 3, 5, 2, 6, 10);
+	private static Map<Integer, Integer> surveyStatusMap = Map.of(-1, 4, 0, 0, 1, 0, 2, 2, 3, 1, 4, 0, 5, 0, 6, 1);
+	private static Map<Integer, Integer> transactionStatusMap = Map.of(-1, 0, 0, 0, 1, 0, 2, 10, 3, 3, 4, 3, 5, 2, 6,
+			10);
+
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss.SSSSSS");
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -80,7 +86,7 @@ public class TablesMigrationReverseEngineering implements ApplicationRunner {
 		for (SurveyTaker surveyTaker : surveyTakerList) {
 
 			Optional<Tracking> optionalTracking = trackingRepository
-					.findByInterviewIDAndCampaignIDIn(surveyTaker.getSurveyInvitationID(), List.of(400, 401));
+					.findByInterviewIDAndCampaignIDIn(surveyTaker.getSurveyInvitationID(), programIDs);
 			if (optionalTracking.isPresent()) {
 				Tracking tracking = optionalTracking.get();
 				Optional<Buyer> optionalBuyer = buyerRepository.findById(tracking.getBuyerID());
@@ -88,8 +94,16 @@ public class TablesMigrationReverseEngineering implements ApplicationRunner {
 					Buyer buyer = optionalBuyer.get();
 					List<SrcVehicleSalesData> srcVehicleSalesDataList = srcVehicleSalesDataRepository
 							.findByVehicleID(buyer.getVehicleID());
+					LocalDateTime salesLocalDateTime = srcVehicleSalesDataList.stream()
+							.filter(item -> !item.getProcessStatus().equals("IGNORE"))
+							.map(item -> LocalDateTime.parse(item.getSaleTimeStamp(), formatter))
+							.min(LocalDateTime::compareTo).orElse(null);
+
 					for (SrcVehicleSalesData srcVehicleSalesData : srcVehicleSalesDataList) {
-						if (!srcVehicleSalesData.getVin().equals(surveyTaker.getVin())) {
+						if (!(srcVehicleSalesData.getVin().equals(surveyTaker.getVin())
+								&& surveyTaker.getSurveyInvitationID().equals(tracking.getInterviewID())
+								&& salesLocalDateTime.equals(
+										LocalDateTime.parse(srcVehicleSalesData.getSaleTimeStamp(), formatter)))) {
 							continue;
 						}
 						// create panel_member here
@@ -114,9 +128,7 @@ public class TablesMigrationReverseEngineering implements ApplicationRunner {
 					}
 				}
 			}
-
 		}
-
 		log.info("Done creating tables");
 	}
 
