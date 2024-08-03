@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import com.boot.entity.autox.TblInterviewResult;
 import com.boot.entity.autox.TblUserInterviewLink;
@@ -26,7 +25,7 @@ import com.boot.repository.qp.TextResultRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Component
+//@Component
 @Slf4j
 @Order(3)
 @RequiredArgsConstructor
